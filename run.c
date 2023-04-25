@@ -5,10 +5,11 @@
  * @child: pid of child
  * @arr: array of command
  * @command: full command path
+ * @env: array of enviromental variables
  * Return: nothing
  */
 
-void forking(pid_t child, char **arr, char *command)
+void forking(pid_t child, char **arr, char *command, char *env[])
 {
 	if (child < 0)
 	{
@@ -18,7 +19,7 @@ void forking(pid_t child, char **arr, char *command)
 	}
 	else if (child == 0)
 	{
-		if (execve(command, arr, NULL))
+		if (execve(command, arr, env))
 		{
 			free_array(arr);
 			free(command);
@@ -74,6 +75,6 @@ void run(char **arr, char *command, char *env[], char *argv[])
 	else
 	{
 		child = fork();
-		forking(child, arr, command);
+		forking(child, arr, command, env);
 	}
 }
