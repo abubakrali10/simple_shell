@@ -30,8 +30,8 @@ int main(int argc, char *argv[], char *env[])
 			line[string_len(line) - 1] = '\0';
 
 		arr = string_to_array(line, ' ');
+		shell_exit(arr, line);
 		command = check_command(env, arr[0], st);
-		shell_exit(arr);
 
 		run(arr, command, env, argv);
 
