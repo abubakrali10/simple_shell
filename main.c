@@ -14,7 +14,7 @@ int main(int argc, char *argv[], char *env[])
 	size_t n = 0;
 	ssize_t line_res;
 	struct stat st;
-	(void)atgc;
+	(void)argc;
 
 	mode("$ ", 2);
 
