@@ -13,7 +13,7 @@ int string_words(char *str, char dilm)
 
 	while (str[i])
 	{
-		if (str[i] != film && (str[i + 1] == dilm || str[i + 1] == '\0'))
+		if (str[i] != dilm && (str[i + 1] == dilm || str[i + 1] == '\0'))
 			size++;
 		i++;
 	}
