@@ -38,6 +38,7 @@ int main(int argc, char *argv[], char *env[])
 		mode("$ ", 2);
 	}
 	mode("\n", 1);
+	free(line);
 
 	return (0);
 }
