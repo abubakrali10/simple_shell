@@ -48,20 +48,21 @@ void forking(pid_t child, char **arr, char *command, char *env[])
  * Return: nothing
  */
 
-void run(char **arr, char *command, char *env[], char *argv[])
+int run(char **arr, char *command, char *env[], char *argv[], int error)
 {
 	char c[1];
 	pid_t child;
 
 	if (string_cmp(arr[0], "env") == 0)
 	{
+		error++;
 		free_array(arr);
 		free(command);
 		print_env(env);
 	}
 	else if (command == NULL)
 	{
-		c[0] = '0' + errno;
+		c[0] = '0' + error;
 		write(STDOUT_FILENO, argv[0], string_len(argv[0]));
 		write(STDOUT_FILENO, ": ", 2);
 		write(STDOUT_FILENO, c, 1);
@@ -69,6 +70,7 @@ void run(char **arr, char *command, char *env[], char *argv[])
 		write(STDOUT_FILENO, arr[0], string_len(arr[0]));
 		write(STDOUT_FILENO, ": not found", 11);
 		write(STDOUT_FILENO, "\n", 1);
+		error++;
 		free_array(arr);
 		free(command);
 	}
@@ -76,5 +78,8 @@ void run(char **arr, char *command, char *env[], char *argv[])
 	{
 		child = fork();
 		forking(child, arr, command, env);
+		error++;
 	}
+
+	return (error);
 }
