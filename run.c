@@ -45,6 +45,7 @@ void forking(pid_t child, char **arr, char *command, char *env[])
  * @command: full command path
  * @env: array of enviromental variables
  * @argv: array of main function arguments
+ * @error: error number
  * Return: nothing
  */
 
