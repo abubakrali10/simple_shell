@@ -50,7 +50,6 @@ void forking(pid_t child, char **arr, char *command, char *env[])
 
 void run(char **arr, char *command, char *env[], char *argv[])
 {
-	char c[1];
 	pid_t child;
 
 	if (string_cmp(arr[0], "env") == 0)
@@ -61,14 +60,7 @@ void run(char **arr, char *command, char *env[], char *argv[])
 	}
 	else if (command == NULL)
 	{
-		c[0] = '0' + errno;
-		write(STDOUT_FILENO, argv[0], string_len(argv[0]));
-		write(STDOUT_FILENO, ": ", 2);
-		write(STDOUT_FILENO, c, 1);
-		write(STDOUT_FILENO, ": ", 2);
-		write(STDOUT_FILENO, arr[0], string_len(arr[0]));
-		write(STDOUT_FILENO, ": not found", 11);
-		write(STDOUT_FILENO, "\n", 1);
+		perror(argv[0]);
 		free_array(arr);
 		free(command);
 	}
