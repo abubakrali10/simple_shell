@@ -12,8 +12,10 @@ void print_env(char *env[])
 
 	while (env[i])
 	{
-		write(STDOUT_FILENO, env[i], string_len(env[i]));
-		write(STDOUT_FILENO, "\n", 1);
+		if (write(STDOUT_FILENO, env[i], string_len(env[i])) == -1)
+			perror("error");
+		if (write(STDOUT_FILENO, "\n", 1) == -1)
+			perror("error");
 		i++;
 	}
 }
