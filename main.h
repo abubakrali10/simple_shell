@@ -19,7 +19,7 @@ int string_len(char *str);
 int string_cmp(char *s1, char *s2);
 void free_array(char **arr);
 int run(char **arr, char *command, char *env[], char *argv[], int error);
-void shell_exit(char **arr, char *line);
+int shell_exit(char **arr, char *line, int null_case, int error, char *argv[]);
 void mode(char *text, int len);
 void print_env(char *env[]);
 char **get_path(char *env[]);
