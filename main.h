@@ -24,5 +24,7 @@ void mode(char *text, int len);
 void print_env(char *env[]);
 char **get_path(char *env[]);
 char *check_command(char *env[], char *arg, struct stat st);
+char *num_to_str(int num);
+int str_to_num(char *str);
 
 #endif
