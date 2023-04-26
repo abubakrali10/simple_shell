@@ -24,5 +24,6 @@ void mode(char *text, int len);
 void print_env(char *env[]);
 char **get_path(char *env[]);
 char *check_command(char *env[], char *arg, struct stat st);
+void read_file(char *argv[], char *env[], struct stat st, int error, char *line);
 
 #endif

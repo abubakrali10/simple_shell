@@ -15,7 +15,9 @@ int main(int argc, char *argv[], char *env[])
 	ssize_t line_res;
 	struct stat st;
 	int error = 1;
-	(void)argc;
+
+	if (argc == 2)
+		read_file(argv, env, st, error, line);
 
 	mode("$ ", 2);
 
