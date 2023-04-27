@@ -29,7 +29,7 @@ int main(int argc, char *argv[], char *env[])
 			mode("$ ", 2);
 			continue;
 		}
-		shell_exit(arr, line)
+		shell_exit(arr, line);
 		command = check_command(env, arr[0], st);
 
 		error = run(arr, command, env, argv, error);
