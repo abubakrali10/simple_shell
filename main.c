@@ -14,7 +14,7 @@ int main(int argc, char *argv[], char *env[])
 	size_t n = 0;
 	ssize_t line_res;
 	struct stat st;
-	int error = 0, null_case = 1;
+	int error = 1;
 	(void)argc;
 
 	mode("$ ", 2);
@@ -29,23 +29,15 @@ int main(int argc, char *argv[], char *env[])
 			mode("$ ", 2);
 			continue;
 		}
-		error++;
-		if (shell_exit(arr, line, null_case, error, argv))
-		{
-			null_case = 0;
-			mode("$ ", 2);
-			continue;
-		}
+		shell_exit(arr, line)
 		command = check_command(env, arr[0], st);
 
-		null_case = run(arr, command, env, argv, error);
+		error = run(arr, command, env, argv, error);
 
 		mode("$ ", 2);
 	}
 	mode("\n", 1);
 	free(line);
-	if (!isatty(STDIN_FILENO))
-		exit(127);
 
 	return (0);
 }
