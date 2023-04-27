@@ -82,5 +82,5 @@ int shell_exit(char **arr, char *line, int null_case, int error, char *argv[])
 		}
 	}
 
-	return (0)
+	return (0);
 }
