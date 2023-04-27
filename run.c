@@ -51,35 +51,36 @@ void forking(pid_t child, char **arr, char *command, char *env[])
 
 int run(char **arr, char *command, char *env[], char *argv[], int error)
 {
-	char *c;
+	char c[1];
 	pid_t child;
 
 	if (string_cmp(arr[0], "env") == 0)
 	{
+		error++;
 		free_array(arr);
 		free(command);
 		print_env(env);
 	}
 	else if (command == NULL)
 	{
-		c = num_to_str(error);
+		c[0] = '0' + error;
 		write(STDOUT_FILENO, argv[0], string_len(argv[0]));
 		write(STDOUT_FILENO, ": ", 2);
-		write(STDOUT_FILENO, c, string_len(c));
+		write(STDOUT_FILENO, c, 1);
 		write(STDOUT_FILENO, ": ", 2);
 		write(STDOUT_FILENO, arr[0], string_len(arr[0]));
 		write(STDOUT_FILENO, ": not found", 11);
 		write(STDOUT_FILENO, "\n", 1);
+		error++;
 		free_array(arr);
 		free(command);
-		free(c);
-		return (0);
 	}
 	else
 	{
 		child = fork();
 		forking(child, arr, command, env);
+		error++;
 	}
 
-	return (1);
+	return (error);
 }
