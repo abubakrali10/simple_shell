@@ -1,173 +1,79 @@
-# Simple shell Project
+# A Simple UNIX command-line interpreter (Shell)
 
-Write a simple UNIX command interpreter.
+## Description
 
-### Requirements
+This is a simple UNIX command line interpreter created in C language from scratch that is capable of executing basic commands. It was developed as a project for the ALX Software Engineering program.
 
-#### General
-- Allowed editors: vi, vim, emacs
-- All your files will be compiled on Ubuntu 20.04 LTS using gcc, using the options -Wall -Werror -Wextra -pedantic -std=gnu89
-- All your files should end with a new line
-- A README.md file, at the root of the folder of the project is mandatory
-- Your code should use the Betty style. It will be checked using betty-style.pl and betty-doc.pl
-- Your shell should not have any memory leaks
-- No more than 5 functions per file
-- All your header files should be include guarded
-- Use system calls only when you need to (why?)
-- Write a README with the description of your project
-- You should have an AUTHORS file at the root of your repository, listing all individuals having contributed content to the repository. Format, see Docker
+## Installation
 
-#### Output
-Unless specified otherwise, your program must have the exact same output as sh (/bin/sh) as well as the exact same error output.
-The only difference is when you print an error, the name of the program must be equivalent to your argv[0]
+Clone the repository:
 
-#### List of allowed functions and system calls
-- access (man 2 access)
-- chdir (man 2 chdir)
-- close (man 2 close)
-- closedir (man 3 closedir)
-- execve (man 2 execve)
-- exit (man 3 exit)
-- _exit (man 2 _exit)
-- fflush (man 3 fflush)
-- fork (man 2 fork)
-- free (man 3 free)
-- getcwd (man 3 getcwd)
-- getline (man 3 getline)
-- getpid (man 2 getpid)
-- isatty (man 3 isatty)
-- kill (man 2 kill)
-- malloc (man 3 malloc)
-- open (man 2 open)
-- opendir (man 3 opendir)
-- perror (man 3 perror)
-- read (man 2 read)
-- readdir (man 3 readdir)
-- signal (man 2 signal)
-- stat (__xstat) (man 2 stat)
-- lstat (__lxstat) (man 2 lstat)
-- fstat (__fxstat) (man 2 fstat)
-- strtok (man 3 strtok)
-- wait (man 2 wait)
-- waitpid (man 2 waitpid)
-- wait3 (man 2 wait3)
-- wait4 (man 2 wait4)
-- write (man 2 write)
-
-#### Compilation
-Your shell will be compiled this way:
-```
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+```sh
+$ git clone https://github.com/your_username/simple_shell.git
 ```
 
-#### Testing
-- Your shell should work like this in interactive mode
-- But also in non-interactive mode
+Change directory to simple_shell:
 
----
+```sh
+$ cd simple_shell
+```
 
-### 0-task
-- Write a beautiful code that passes the Betty checks
+Compile the program:
 
-### 1-task
-- Write a UNIX command line interpreter.
+```sh
+$ gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
+```
 
-- Usage: simple_shell
-- Your Shell should:
+## Usage
 
--- Display a prompt and wait for the user to type a command. A command line always ends with a new line.
--- The prompt is displayed again each time a command has been executed.
--- The command lines are simple, no semicolons, no pipes, no redirections or any other advanced features.
--- The command lines are made only of one word. No arguments will be passed to programs.
--- If an executable cannot be found, print an error message and display the prompt again.
--- Handle errors.
--- You have to handle the “end of file” condition (Ctrl+D)
+Run the program:
 
-- You don’t have to:
+```sh
+$ ./hsh
+```
 
--- use the PATH
--- implement built-ins
--- handle special characters : ", ', `, \, *, &, #
--- be able to move the cursor
--- handle commands with arguments
+The prompt `$ ` will be displayed waiting for a command to be entered.
 
-- execve will be the core part of your Shell, don’t forget to pass the environ to it…
+```sh
+$ ls
+```
 
-### 2-task
-- Handle command lines with arguments
+The command `ls` is executed and its output is displayed. The prompt is displayed again waiting for a new command.
 
-### 3-task
-- Handle the PATH
-- fork must not be called if the command doesn’t exist
+### Built-ins
 
-### 4-task
-- Implement the exit built-in, that exits the shell
-- Usage: exit
-- You don’t have to handle any argument to the built-in exit
+The shell includes the following built-ins:
 
-### 5-task
-- Implement the env built-in, that prints the current environment
+- `exit`: exits the shell.
 
-### 6-task
-- Write your own getline function
-- Use a buffer to read many chars at once and call the least possible the read system call
-- You will need to use static variables
-- You are not allowed to use getline
-- You don’t have to:
--- be able to move the cursor
+### Command Lines with Arguments
 
-### 7-task
-- You are not allowed to use strtok
+Command lines with arguments are supported. For example:
 
-### 8-task
-- handle arguments for the built-in exit
-- Usage: exit status, where status is an integer used to exit the shell
+```sh
+$ ls -l /tmp
+```
 
-### 9-task
-- Implement the setenv and unsetenv builtin commands
+### Handling the PATH
 
-- setenv
--- Initialize a new environment variable, or modify an existing one
--- Command syntax: setenv VARIABLE VALUE
--- Should print something on stderr on failure
-- unsetenv
--- Remove an environment variable
--- Command syntax: unsetenv VARIABLE
--- Should print something on stderr on failure
+The shell handles the `PATH` variable to locate executables. If an executable cannot be found in any of the directories listed in `PATH`, an error message is displayed.
 
-### 10-task
-- Implement the builtin command cd:
+### Buffering and Read System Call
 
-- Changes the current directory of the process.
-- Command syntax: cd [DIRECTORY]
-- If no argument is given to cd the command must be interpreted like cd $HOME
-- You have to handle the command cd -
-- You have to update the environment variable PWD when you change directory
+The shell uses a buffer to read many characters at once and call the least possible the read system call, avoiding unnecessary calls to read.
 
-### 11-task
-- Handle the commands separator ;
+### Variables Replacement
 
-### 12-task
-- Handle the && and || shell logical operators
+The shell handles variables replacement. The following variables are supported:
 
-### 13-task
-- Implement the alias builtin command
-- Usage: alias [name[='value'] ...]
-- alias: Prints a list of all aliases, one per line, in the form name='value'
-- alias name [name2 ...]: Prints the aliases name, name2, etc 1 per line, in the form name='value'
-- alias name='value' [...]: Defines an alias for each name whose value is given. If name is already an alias, replaces its value with value
+- `$?`: displays the exit status of the last command executed.
+- `$$`: displays the process ID of the current shell.
 
-### 14-task
-- Handle variables replacement
-- Handle the $? variable
-- Handle the $$ variable
+### Error Handling
 
-### 15-task
-- Handle comments (#)
+The shell handles errors such as incorrect command syntax, invalid arguments, and command not found, displaying appropriate error messages and returning the appropriate exit status.
 
-### 16-task
-- Usage: simple_shell [filename]
-- Your shell can take a file as a command line argument
-- The file contains all the commands that your shell should run before exiting
-- The file should contain one command per line
-- In this mode, the shell should not print a prompt and should not read from stdin
+## Contributors
+
+- [Abubakr Ali](https://github.com/abubakrali10)
+- [Amgad Fikry](https://github.com/amgadfikry)
